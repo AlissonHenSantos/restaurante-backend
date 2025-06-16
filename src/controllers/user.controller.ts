@@ -1,6 +1,14 @@
 import { Request, Response } from "express";
 import { PrismaClient} from "../../generated/prisma";
+import { UserService } from "../services/UserService";
 
+class UserController {
+    constructor(private userService: UserService){
+    }
+    
+    
+
+}
 
 export const getUsers = async (req:Request, res:Response): Promise<Response> => {
     try{
@@ -30,6 +38,9 @@ export const getUserById = async (req: Request, res: Response): Promise<Response
         const user = await prisma.user.findUnique({
             where: {id: Number(req.params.id)}
         })
+
+        if(!user) return res.status(404).send("Usuário não encontrado")
+
         return res.status(201).send(user)
     }catch(error: any){
         return res.status(500).send(error)
