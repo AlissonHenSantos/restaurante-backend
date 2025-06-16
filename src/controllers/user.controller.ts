@@ -1,78 +1,69 @@
-import { Request, Response } from "express";
-import { PrismaClient} from "../../generated/prisma";
+import e, { Request, Response } from "express";
+import {  User } from "../../generated/prisma";
 import { UserService } from "../services/UserService";
 
-class UserController {
-    constructor(private userService: UserService){
-    }
-    
-    
 
-}
 
-export const getUsers = async (req:Request, res:Response): Promise<Response> => {
-    try{
-        const prisma = new PrismaClient()
-        const users = await prisma.user.findMany()
-        return res.status(201).send(users)
-    }catch(error: any){
-        return res.status(500).send(error)
-    }
-}
-
-export const createUser = async(req: Request, res: Response): Promise<Response> =>{
-    const prisma = new PrismaClient()
-    try{
-        const user = await prisma.user.create({
-            data: req.body
-        })
-        return res.status(201).send(user)
-    }catch(error: any){
-        return res.status(500).send(error)
-    }
-}
-
-export const getUserById = async (req: Request, res: Response): Promise<Response> => {
-    const prisma = new PrismaClient()
-    try{
-        const user = await prisma.user.findUnique({
-            where: {id: Number(req.params.id)}
-        })
-
-        if(!user) return res.status(404).send("Usuário não encontrado")
-
-        return res.status(201).send(user)
-    }catch(error: any){
-        return res.status(500).send(error)
+export class UserController {
+    constructor(private userService: UserService) {
     }
 
-}
-
-export const updateUser = async(req: Request, res: Response): Promise<Response> => {
-    const prisma = new PrismaClient()
-    try{
-        const user = await prisma.user.update({
-            where: {
-                id: Number(req.params.id)
-            },
-            data: req.body
-        })
-        return res.status(201).send(user)
-    }catch(error: any){
-        return res.status(500).send(error)
+    public async findAll(req: Request, res: Response): Promise<Response> {
+        try {
+            const users = await this.userService.findAll()
+            return res.status(201).send(users)
+        } catch (error: any) {
+            return res.status(500).send(error + ``)
+        }
     }
-}
 
-export const deleteUser = async(req: Request, res: Response):  Promise<Response> => {
-    const prisma = new PrismaClient()
-    try{
-        const user = await prisma.user.delete({
-            where: {
-                id: Number(req.params.id)
-            }
-        })
+    public async createUser(req: Request, res: Response): Promise<Response> {
+        try {
+            const user: User = req.body
+            const createUser = await this.userService.createUser(user)
+            return res.status(201).send(createUser)
+        } catch (error: any) {
+            return res.status(500).json(error + ``)
+        }
+    }
+
+    public async findById(req: Request, res: Response): Promise<Response> {
+        try {
+            const user = await this.userService.findById(req.params.id)
+
+            if (!user) return res.status(404).send("Usuário não encontrado")
+
+            return res.status(201).send(user)
+        } catch (error: any) {
+            return res.status(500).send(error + ``)
+        }
+    }
+
+    public async updateUser(req: Request, res: Response): Promise<Response> {
+        try {
+            const user: User = req.body
+
+            const updatedUser = await this.userService.updateUser(req.params.id, user)
+            return res.status(201).send(updatedUser)
+        } catch (error: any) {
+            return res.status(500).json(error + ``)
+        }
+    }
+
+    public async deleteUser(req: Request, res: Response): Promise<Response>{
+         try {
+        const user = await this.userService.deleteUser(req.params.id)
         return res.status(200).send("Usuário removido com sucesso")
-    }catch(erro: any){
-        return res.status(500).send(erro)
+    } catch (erro: any) {
+        return res.status(500).send(erro + ``)
+    }
+    }
+    public async findByEmail(req: Request, res: Response): Promise<Response> {
+        try {
+            const user = await this.userService.findByEmail(req.params.email)
+            return res.status(201).send(user)
+        } catch (error: any) {
+            return res.status(500).send(error + ``)
+        }
     }
 }
