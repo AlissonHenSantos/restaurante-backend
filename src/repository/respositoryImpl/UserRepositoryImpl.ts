@@ -20,12 +20,12 @@ export class UserRepositoryImpl implements IUserRepository{
     public async findByEmail(email: string): Promise<User | null> {
         return await this.prisma.user.findUnique({where: {email: email}})
     }
-    
+
     public async createUser(data: Pick<User,"name" | "email" | "password" | "role" | "id">): Promise<User> {
         return await this.prisma.user.create({data: data})
     }
     public async deleteUser(id: number): Promise<void> {
-        const user = await this.prisma.user.delete({
+        await this.prisma.user.delete({
             where: {id: id}
         })
     }

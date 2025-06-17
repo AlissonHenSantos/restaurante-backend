@@ -1,4 +1,4 @@
-import e, { Request, Response } from "express";
+import { Request, Response } from "express";
 import {  User } from "../../generated/prisma";
 import { UserService } from "../services/UserService";
 
@@ -57,13 +57,5 @@ export class UserController {
     } catch (erro: any) {
         return res.status(500).send(erro + ``)
     }
-    }
-    public async findByEmail(req: Request, res: Response): Promise<Response> {
-        try {
-            const user = await this.userService.findByEmail(req.params.email)
-            return res.status(201).send(user)
-        } catch (error: any) {
-            return res.status(500).send(error + ``)
-        }
     }
 }

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { UserController } from "../controllers/user.controller";
+import { UserController } from "../controllers/UserController";
 
 
 
@@ -11,8 +11,8 @@ export const userRoutes = (userController: UserController) => {
     router.get("/users/:id", userController.findById.bind(userController))
     router.put("/users/:id", userController.updateUser.bind(userController))
     router.delete("/users/:id", userController.deleteUser.bind(userController))
-    router.get("/users/email/:email", userController.findByEmail.bind(userController)) 
-    
+
+
     return router;
 }
 
