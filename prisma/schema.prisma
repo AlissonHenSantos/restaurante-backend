@@ -20,18 +20,39 @@ enum Role {
   WAITER
   ADMIN
 }
+enum TableStatus {
+  AVALIABLE
+  OCCUPIED
+  RESERVED
+}
 
 model Category {
   id Int @id @default(autoincrement())
   category String @unique
-  products product[]
+  products Product[]
 }
 
-model product {
+model Product {
   id Int @id @default(autoincrement())
   name String
   price Float
   categoryId Int
   description String?
+  image String?
   category Category @relation(fields: [categoryId], references: [id])
+}
+
+model Order {
+  id Int @id @default(autoincrement())
+  tableId table[]
+}
+
+
+
+
+model table {
+  id Int @id @default(autoincrement())
+  number Int
+  orderId Int
+  order Order @relation(fields: [orderId], references: [id])
 }

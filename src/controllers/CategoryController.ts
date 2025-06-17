@@ -23,7 +23,7 @@ export class CategoryController {
     }
     public async createCategory(req: Request, res: Response): Promise<void> {
         try {
-            const categoryData: Partial<Category> = req.body;
+            const categoryData: Category = req.body;
             const newCategory: Category = await this.categoryService.createCategory(categoryData);
             res.status(201).json(newCategory);
         } catch (error) {
@@ -40,7 +40,7 @@ export class CategoryController {
     }
     public async updateCategory(req: Request, res: Response): Promise<void> {
         try {
-            const categoryData: Partial<Category> = req.body;
+            const categoryData: Category = req.body;
             const updatedCategory: Category = await this.categoryService.updateCategory(req.params.id, categoryData);
             res.status(200).json(updatedCategory);
         } catch (error) {

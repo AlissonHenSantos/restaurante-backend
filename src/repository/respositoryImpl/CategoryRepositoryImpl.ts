@@ -1,6 +1,7 @@
 import { PrismaClient, Category } from "../../../generated/prisma";
+import { IFindCategory, ICreateCategory, IDeleteCategory, IUpdateCategory } from "../ICategoryRepository";
 
-export class CategoryRepositoryImpl {
+export class CategoryRepositoryImpl implements IFindCategory, ICreateCategory, IDeleteCategory, IUpdateCategory {
 
     constructor(private prisma: PrismaClient) {
     }
