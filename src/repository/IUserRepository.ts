@@ -16,6 +16,4 @@ export interface IDeleteUser {
 export interface IUpdateUser {
     updateUser(id: number, data: Pick<User, "name" | "email" | "password" | "role">): Promise<User>
 }
-export interface IUserRepository extends IFindUser, ICreateUser, IDeleteUser, IUpdateUser {
-    
-}
+export interface IUserRepository extends IFindUser, ICreateUser, IDeleteUser, IUpdateUser {}

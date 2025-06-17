@@ -13,6 +13,7 @@ export class CategoryController {
             res.status(500).json(error instanceof Error ? error.message : "Internal Server Error");
         }
     }
+
     public async findById(req: Request, res: Response): Promise<void> {
         try {
             const category: Category = await this.categoryService.findById(req.params.id);
@@ -21,6 +22,7 @@ export class CategoryController {
             res.status(500).json(error instanceof Error ? error.message : "Internal Server Error");
         }
     }
+
     public async createCategory(req: Request, res: Response): Promise<void> {
         try {
             const categoryData: Category = req.body;
@@ -30,6 +32,7 @@ export class CategoryController {
             res.status(500).json(error instanceof Error ? error.message : "Internal Server Error");
         }
     }
+
     public async deleteCategory(req: Request, res: Response): Promise<void> {
         try {
             await this.categoryService.deleteCategory(req.params.id);
@@ -38,6 +41,7 @@ export class CategoryController {
             res.status(500).json(error instanceof Error ? error.message : "Internal Server Error");
         }
     }
+
     public async updateCategory(req: Request, res: Response): Promise<void> {
         try {
             const categoryData: Category = req.body;
@@ -47,6 +51,5 @@ export class CategoryController {
             res.status(500).json(error instanceof Error ? error.message : "Internal Server Error");
         }
     }
-    
 
 }

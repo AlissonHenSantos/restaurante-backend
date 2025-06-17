@@ -10,12 +10,13 @@ export class UserController {
 
     public async findAll(req: Request, res: Response): Promise<Response> {
         try {
-            const users = await this.userService.findAll()
+            const users: User[] = await this.userService.findAll()
             return res.status(201).send(users)
         } catch (error: any) {
             return res.status(500).send(error + ``)
         }
     }
+    
 
     public async createUser(req: Request, res: Response): Promise<Response> {
         try {
@@ -52,7 +53,7 @@ export class UserController {
 
     public async deleteUser(req: Request, res: Response): Promise<Response>{
          try {
-        const user = await this.userService.deleteUser(req.params.id)
+        await this.userService.deleteUser(req.params.id)
         return res.status(200).send("Usuário removido com sucesso")
     } catch (erro: any) {
         return res.status(500).send(erro + ``)

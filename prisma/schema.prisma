@@ -20,11 +20,6 @@ enum Role {
   WAITER
   ADMIN
 }
-enum TableStatus {
-  AVALIABLE
-  OCCUPIED
-  RESERVED
-}
 
 model Category {
   id Int @id @default(autoincrement())
@@ -42,17 +37,20 @@ model Product {
   category Category @relation(fields: [categoryId], references: [id])
 }
 
-model Order {
+model Order{
   id Int @id @default(autoincrement())
-  tableId table[]
+
 }
 
+enum TableStatus {
+  AVALIABLE
+  OCCUPED
+  RESERVED
+}
 
-
-
-model table {
+model Table {
   id Int @id @default(autoincrement())
   number Int
   orderId Int
-  order Order @relation(fields: [orderId], references: [id])
+  status TableStatus
 }

@@ -14,6 +14,4 @@ export interface IDeleteCategory {
 export interface IUpdateCategory {
     updateCategory(id: number, data: Pick<Category, "category">): Promise<Category>;
 }
-export interface ICategoryRepository extends IFindCategory, ICreateCategory, IDeleteCategory, IUpdateCategory {
-
-}
+export interface ICategoryRepository extends IFindCategory, ICreateCategory, IDeleteCategory, IUpdateCategory {}

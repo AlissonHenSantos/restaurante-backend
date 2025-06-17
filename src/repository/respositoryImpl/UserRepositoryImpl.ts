@@ -4,11 +4,7 @@ import { IFindUser, ICreateUser, IDeleteUser, IUpdateUser } from "../IUserReposi
 
 
 export class UserRepositoryImpl implements IFindUser, ICreateUser, IDeleteUser, IUpdateUser {
-    private prisma: PrismaClient
-
-    constructor(prisma: PrismaClient){
-        this.prisma = prisma
-    }
+    constructor(private prisma: PrismaClient){}
 
     public async findById(id: number): Promise<User> {
         return await this.prisma.user.findUnique({where: { id: id } })
@@ -26,15 +22,9 @@ export class UserRepositoryImpl implements IFindUser, ICreateUser, IDeleteUser, 
         return await this.prisma.user.create({data: data})
     }
     public async deleteUser(id: number): Promise<void> {
-        
-        await this.prisma.user.delete({
-            where: {id: id}
-        })
+        await this.prisma.user.delete({ where: {id: id} })
     }
     public async updateUser(id: number, data: Pick<User, "name" | "email" | "password" | "role">): Promise<User> {
-        return  await this.prisma.user.update({
-            where: {id: id},
-            data: data
-        })
+        return  await this.prisma.user.update({ where: {id: id}, data: data })
     }
 }

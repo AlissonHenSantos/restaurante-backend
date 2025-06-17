@@ -15,14 +15,9 @@ export class CategoryRepositoryImpl implements IFindCategory, ICreateCategory, I
         return await this.prisma.category.create({ data: data });
     }
     public async deleteCategory(id: number): Promise<void> {
-        await this.prisma.category.delete({
-            where: { id: id }
-        });
+        await this.prisma.category.delete({ where: { id: id }});
     }
     public async updateCategory(id: number, data: Pick<Category, "category">): Promise<Category> {
-        return await this.prisma.category.update({
-            where: { id: id },
-            data: data
-        });
+        return await this.prisma.category.update({ where: { id: id }, data: data });
     }
 }
