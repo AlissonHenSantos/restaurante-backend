@@ -1,8 +1,9 @@
 import { PrismaClient, User } from "../../../generated/prisma";
-import { IUserRepository } from "../IUserRepository";
+import { IFindUser, ICreateUser, IDeleteUser, IUpdateUser } from "../IUserRepository";
 
 
-export class UserRepositoryImpl implements IUserRepository{
+
+export class UserRepositoryImpl implements IFindUser, ICreateUser, IDeleteUser, IUpdateUser {
     private prisma: PrismaClient
 
     constructor(prisma: PrismaClient){
@@ -25,6 +26,7 @@ export class UserRepositoryImpl implements IUserRepository{
         return await this.prisma.user.create({data: data})
     }
     public async deleteUser(id: number): Promise<void> {
+        
         await this.prisma.user.delete({
             where: {id: id}
         })
