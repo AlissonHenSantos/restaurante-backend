@@ -6,13 +6,13 @@ import { productRoutes } from "./routes/ProductRoute"
 
 const app = express()
 
-const controller = container.getUserController()
+const userController = container.getUserController()
 const categoryController = container.getCategoryController()
 const productContorller =  container.getProductController()
 
 app.use(express.json())
 
-app.use(userRoutes(controller))
+app.use(userRoutes(userController))
 app.use(categoryRoutes(categoryController))
 app.use(productRoutes(productContorller))
 
