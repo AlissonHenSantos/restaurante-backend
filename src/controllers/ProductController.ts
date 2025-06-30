@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { ProductService } from "../services/ProductService";
-import { Product } from "../../generated/prisma";
+import { Product } from "@prisma/client";
 
 
 export class ProductController {

@@ -1,4 +1,4 @@
-import { PrismaClient } from "../../generated/prisma";
+import { PrismaClient } from "@prisma/client";
 
 import { UserService } from "../services/UserService";
 import { UserRepositoryImpl } from "../repository/respositoryImpl/UserRepositoryImpl";
@@ -12,6 +12,8 @@ import { IProductRepository } from "../repository/IProductRepository";
 import { ProductService } from "../services/ProductService";
 import { ProductController } from "../controllers/ProductController";
 import { ProductRepositoryImpl } from "../repository/respositoryImpl/ProductRepositoryImpl";
+import { AuthService } from "../services/AuthService";
+import { AuthController } from "../controllers/AuthController";
 
 class DependencyContainer {
     private static instace : DependencyContainer
@@ -22,6 +24,9 @@ class DependencyContainer {
     private userService: UserService;
     private userController: UserController;
 
+    private AuthService: AuthService
+    private AuthController: AuthController
+   
     private categoryRepository: ICategoryRepository
     private categoryService: CategoryService
     private categoryController: CategoryController
@@ -40,10 +45,12 @@ class DependencyContainer {
         this.userService =  new UserService(this.userRepository)
         this.categoryService =  new CategoryService(this.categoryRepository)
         this.productService =  new ProductService(this.productRepository)
+        this.AuthService = new AuthService(this.userRepository)
 
         this.userController =  new UserController(this.userService)
         this.categoryController = new CategoryController(this.categoryService)
         this.productContorller =  new ProductController(this.productService)
+        this.AuthController = new AuthController(this.AuthService)
     }
 
     public static getInstance(): DependencyContainer{
@@ -60,6 +67,10 @@ class DependencyContainer {
     }
     public getProductController(): ProductController{
         return this.productContorller
+    }
+
+    public getAuthController(): AuthController {
+        return this.AuthController
     }
 }
 

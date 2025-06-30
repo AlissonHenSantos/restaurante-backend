@@ -1,6 +1,6 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
 }
 
 datasource db {
@@ -32,7 +32,7 @@ model Product {
   name String
   price Float
   categoryId Int
-  description String?
+  description String? 
   image String?
   intensOrder ItensOrder[]
   category Category @relation(fields: [categoryId], references: [id])

@@ -1,4 +1,4 @@
-import { User } from "../../generated/prisma";
+import { User } from "@prisma/client";
 import { IUserRepository } from "../repository/IUserRepository";
 import bcript from "bcrypt-ts";
 

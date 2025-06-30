@@ -1,10 +1,10 @@
-import { PrismaClient } from "../../../generated/prisma";
+import { PrismaClient } from "@prisma/client";
 import { IFindProduct, ICreateProduct, IDeleteProduct, IUpdateProduct } from "../IProductRepository";
-import { Product } from "../../../generated/prisma";
+import { Product } from "@prisma/client";
 
 export class ProductRepositoryImpl implements IFindProduct, ICreateProduct, IDeleteProduct, IUpdateProduct{
-
-    constructor(private prisma: PrismaClient){}
+    
+    constructor(private prisma: PrismaClient){} 
 
     public async findAll(): Promise<Product[]> {
         return await this.prisma.product.findMany()

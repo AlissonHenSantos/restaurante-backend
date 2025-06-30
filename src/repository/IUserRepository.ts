@@ -1,4 +1,4 @@
-import { User } from "../../generated/prisma";
+import { User } from "@prisma/client";
 
 export interface ICreateUser{
     createUser(data:Pick<User,"name" | "email" | "password" | "role">): Promise<User>

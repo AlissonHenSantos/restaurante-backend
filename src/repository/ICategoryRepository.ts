@@ -1,4 +1,4 @@
-import { Category } from "../../generated/prisma";
+import { Category } from "@prisma/client";
 
 export interface IFindCategory {
     findAll(): Promise<Category[]>;
