@@ -14,6 +14,14 @@ import { ProductController } from "../controllers/ProductController";
 import { ProductRepositoryImpl } from "../repository/respositoryImpl/ProductRepositoryImpl";
 import { AuthService } from "../services/AuthService";
 import { AuthController } from "../controllers/AuthController";
+import { ITableRepository } from "../repository/ITableRepository";
+import { TableService } from "../services/TableService";
+import { TableController } from "../controllers/TableController";
+import { TableRepositoryImpl } from "../repository/respositoryImpl/TableRepositoryImpl";
+import { OrderRepositoy } from "../repository/respositoryImpl/OrderRepositoryImpl";
+import { OrderService } from "../services/OrderService";
+import { OrderController } from "../controllers/OrderController";
+import { OrderItemRepository } from "../repository/respositoryImpl/OrderItensRepository";
 
 class DependencyContainer {
     private static instace : DependencyContainer
@@ -35,22 +43,39 @@ class DependencyContainer {
     private productService: ProductService  
     private productContorller: ProductController
 
+    private TableRepository: ITableRepository
+    private TableService: TableService
+    private TableController: TableController
+
+    private orderRepository: OrderRepositoy
+    private orderService: OrderService
+    private orderController: OrderController
+
+    private itemRepository: OrderItemRepository
+
     private constructor() {
         this.prisma = new PrismaClient();
 
         this.userRepository = new UserRepositoryImpl(this.prisma)
         this.categoryRepository =  new CategoryRepositoryImpl(this.prisma)
         this.productRepository =  new ProductRepositoryImpl(this.prisma)
+        this.TableRepository = new TableRepositoryImpl(this.prisma)
+        this.orderRepository = new OrderRepositoy(this.prisma)
+        this.itemRepository = new OrderItemRepository(this.prisma)
 
         this.userService =  new UserService(this.userRepository)
         this.categoryService =  new CategoryService(this.categoryRepository)
         this.productService =  new ProductService(this.productRepository)
         this.AuthService = new AuthService(this.userRepository)
+        this.TableService = new TableService(this.TableRepository)
+        this.orderService =  new OrderService(this.orderRepository, this.itemRepository)
 
         this.userController =  new UserController(this.userService)
         this.categoryController = new CategoryController(this.categoryService)
         this.productContorller =  new ProductController(this.productService)
         this.AuthController = new AuthController(this.AuthService)
+        this.TableController = new TableController(this.TableService)
+        this.orderController = new OrderController(this.orderService)
     }
 
     public static getInstance(): DependencyContainer{
@@ -71,6 +96,12 @@ class DependencyContainer {
 
     public getAuthController(): AuthController {
         return this.AuthController
+    }
+    public getTableController(): TableController {
+        return this.TableController
+    }
+    public getOrderController(): OrderController{
+        return this.orderController
     }
 }
 

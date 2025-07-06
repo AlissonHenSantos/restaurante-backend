@@ -10,19 +10,18 @@ export class ProductService{
     }
 
     public async findById(id: string): Promise<Product>{
-        const user = await this.productRepository.findById(Number(id))
+        const user = await this.productRepository.findById(id)
 
         if(!user) throw new Error("Produto não encontrado")
         return user
     }
 
     public async findByCategory(categoryId: string): Promise<Product[]>{
-        const categoryIdN = Number(categoryId)
 
-        const category = await this.productRepository.findById(categoryIdN)
+        const category = await this.productRepository.findById(categoryId)
         if(!category) throw new Error("Categoria não encontrada")
 
-        return await this.productRepository.findByCategory(categoryIdN)
+        return await this.productRepository.findByCategory(categoryId)
     }
 
     public async createProduct(data: Partial<Product>): Promise<Product>{
@@ -42,8 +41,7 @@ export class ProductService{
     }
 
     public async updateProduct(id: string, data: Partial<Product>): Promise<Product>{
-        const idN = Number(id)
-        const product = this.productRepository.findById(idN)
+        const product = this.productRepository.findById(id)
         if(!product) throw new Error("Produto não encontrado")
         
         const productUpdated: Product = {
@@ -54,13 +52,12 @@ export class ProductService{
             categoryId: data.categoryId,
             image: data.image
         }
-        return await this.productRepository.updateProduct(idN, productUpdated)
+        return await this.productRepository.updateProduct(id, productUpdated)
     }
     public async deleteProduct(id: string): Promise<void> {
 
-        const idN = Number(id)
-        const product = this.productRepository.findById(idN)
+        const product = this.productRepository.findById(id)
         if(!product) throw new Error("Produto não encontrado")
-        await this.productRepository.deleteProduct(idN)
+        await this.productRepository.deleteProduct(id)
     }
 }

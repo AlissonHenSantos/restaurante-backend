@@ -32,7 +32,7 @@ export class UserService{
    }
    
    public async findById(id: string): Promise<User>{
-      return await this.userRepository.findById(Number(id));
+      return await this.userRepository.findById(id);
    }
 
    public async findByEmail(email: string): Promise<User | null>{
@@ -50,24 +50,24 @@ export class UserService{
       const passwordHash =  bcript.hashSync(data.password, 10);
       const existingUser = await this.userRepository.findByEmail(data.email);
 
-      if (existingUser && existingUser.id !== Number(id)) {
+      if (existingUser && existingUser.id !== id) {
          throw new Error("Usuário já existe com esse email");
       }
       const user: User = {
-         id: Number(id), 
+         id: id, 
          name: data.name,
          email: data.email,
          password: passwordHash, 
          role: data.role
       }
-      return await this.userRepository.updateUser(Number(id), user);
+      return await this.userRepository.updateUser(id, user);
    }
 
    public async deleteUser(id: string): Promise<void>{
-   const user = await this.userRepository.findById(Number(id));
+   const user = await this.userRepository.findById(id);
    if (!user) {
       throw new Error("Usuário não encontrado");
    }
-   await this.userRepository.deleteUser(Number(id));
+   await this.userRepository.deleteUser(id);
    }
 }

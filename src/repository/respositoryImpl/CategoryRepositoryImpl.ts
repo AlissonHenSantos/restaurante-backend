@@ -8,16 +8,16 @@ export class CategoryRepositoryImpl implements IFindCategory, ICreateCategory, I
     public async findAll(): Promise<Category[]> {
         return await this.prisma.category.findMany();
     }
-    public async findById(id: number): Promise<Category> {
+    public async findById(id: string): Promise<Category> {
         return await this.prisma.category.findUnique({ where: { id: id } });
     }
     public async createCategory(data: Pick<Category, "category">): Promise<Category> {
         return await this.prisma.category.create({ data: data });
     }
-    public async deleteCategory(id: number): Promise<void> {
+    public async deleteCategory(id: string): Promise<void> {
         await this.prisma.category.delete({ where: { id: id }});
     }
-    public async updateCategory(id: number, data: Pick<Category, "category">): Promise<Category> {
+    public async updateCategory(id: string, data: Pick<Category, "category">): Promise<Category> {
         return await this.prisma.category.update({ where: { id: id }, data: data });
     }
 }

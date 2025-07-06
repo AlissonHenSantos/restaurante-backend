@@ -13,4 +13,6 @@ export class AuthController {
             return res.status(500).json(error instanceof Error ? error.message : "Internal Server Error");
         }
     }
+
+    
 }

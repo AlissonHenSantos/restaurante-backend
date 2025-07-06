@@ -6,14 +6,14 @@ export interface ICreateUser{
 
 export interface IFindUser {
     findByEmail(email: string): Promise<User>
-    findById(id: number): Promise<User>
+    findById(id: string): Promise<User>
     findAll(): Promise<User[]>
 }
 export interface IDeleteUser {
-    deleteUser(id: number): Promise<void>
+    deleteUser(id: string): Promise<void>
 }
 
 export interface IUpdateUser {
-    updateUser(id: number, data: Pick<User, "name" | "email" | "password" | "role">): Promise<User>
+    updateUser(id: string, data: Pick<User, "name" | "email" | "password" | "role">): Promise<User>
 }
 export interface IUserRepository extends IFindUser, ICreateUser, IDeleteUser, IUpdateUser {}
