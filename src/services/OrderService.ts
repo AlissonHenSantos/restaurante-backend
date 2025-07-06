@@ -158,6 +158,9 @@ export class OrderService {
   public async findItensByOrder(orderId: string): Promise<OrderItem[]> {
     return await this.itens.findByOrder(orderId)
   }
+  async updateOrder(id: string, data: any): Promise<Order> {
+    return await this.order.updateOrder(id, data);
+  }
 
   public async getOpenOrderForTable(tableId: string) {
     const order = await this.order.findOpenOrderByTableId(tableId)

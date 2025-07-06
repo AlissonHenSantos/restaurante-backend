@@ -8,6 +8,7 @@ export const orderRoutes = (orderController: OrderController) => {
     router.post("/order", orderController.createOrder.bind(orderController));
     router.get("/order", orderController.findOrder.bind(orderController))
     router.get("/order/:id", orderController.findById.bind(orderController));
+    router.put("/order/:id", orderController.updateOrder.bind(orderController));
     router.delete("/order/:id", orderController.deleteOrder.bind(orderController))
 
     router.post("/order/:idOrder/addproduct", orderController.addProduct.bind(orderController))

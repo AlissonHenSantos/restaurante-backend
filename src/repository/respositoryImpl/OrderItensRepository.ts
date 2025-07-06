@@ -10,6 +10,9 @@ export class OrderItemRepository implements IOrderItemRepository {
     async findByOrder(orderId: string): Promise<OrderItem[]> {
         return this.prismaClient.orderItem.findMany({
             where: { orderId },
+            include: {
+                product: true, // Inclui os detalhes do produto
+            },
         });
     }
 

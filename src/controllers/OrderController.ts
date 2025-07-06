@@ -13,6 +13,14 @@ export class OrderController {
       res.status(400).json({ error: error.message });
     }
   }
+  async updateOrder(req: Request, res: Response) {
+    try {
+      const orderUpdated = await this.orderService.updateOrder(req.params.id, req.body)
+      return res.status(200).send(orderUpdated)
+    } catch (error) {
+      return res.status(400).json({ error: error.message });
+    }
+  }
 
   async findOrder(req: Request, res: Response) {
     try {
